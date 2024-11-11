@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light"
+    style="--anzhiyu-bar-background: var(--anzhiyu-meta-theme-color); --anzhiyu-main: #70b8ff; --anzhiyu-theme-op: #70b8ff23; --anzhiyu-theme-op-deep: #70b8ffdd; --anzhiyu-snackbar-time: 2000ms;">
+
+<head>
+    <script src="https://npm.elemecdn.com/echarts@5.4.3/dist/echarts.min.js"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>音乐馆 | NaoKuo</title>
+    <meta name="description" content="音乐馆">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="https://cdn.cbd.int/naokuo-blog-static@1.0.7/icon/iconfont.css">
+    <link rel="stylesheet" href="https://cdn.cbd.int/naokuo-blog-static@1.0.7/aplayer/APlayer.min.css" media="print" onload="this.media='all'">
+    <script>
+        (win => {
+            win.saveToLocal = {
+                set: (key, value, ttl) => {
+                    if (ttl === 0) return
+                    const now = Date.now()
+                    const expiry = now + ttl * 86400000
+                    const item = {
+                        value,
+                        expiry
+                    }
+                    localStorage.setItem(key, JSON.stringify(item))
+                },
+
+                get: key => {
+                    const itemStr = localStorage.getItem(key)
+
+                    if (!itemStr) {
+                        return undefined
+                    }
+                    const item = JSON.parse(itemStr)
+                    const now = Date.now()
+
+                    if (now > item.expiry) {
+                        localStorage.removeItem(key)
+                        return undefined
+                    }
+                    return item.value
+                }
+            }
+
+            win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+                const script = document.createElement('script')
+                script.src = url
+                script.async = true
+                script.onerror = reject
+                script.onload = script.onreadystatechange = function () {
+                    const loadState = this.readyState
+                    if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+                    script.onload = script.onreadystatechange = null
+                    resolve()
+                }
+
+                Object.keys(attr).forEach(key => {
+                    script.setAttribute(key, attr[key])
+                })
+
+                document.head.appendChild(script)
+            })
+
+            win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+                const link = document.createElement('link')
+                link.rel = 'stylesheet'
+                link.href = url
+                if (id) link.id = id
+                link.onerror = reject
+                link.onload = link.onreadystatechange = function () {
+                    const loadState = this.readyState
+                    if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+                    link.onload = link.onreadystatechange = null
+                    resolve()
+                }
+                document.head.appendChild(link)
+            })
+
+            win.activateDarkMode = () => {
+                document.documentElement.setAttribute('data-theme', 'dark')
+                if (document.querySelector('meta[name="theme-color"]') !== null) {
+                    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#18171d')
+                }
+            }
+            win.activateLightMode = () => {
+                document.documentElement.setAttribute('data-theme', 'light')
+                if (document.querySelector('meta[name="theme-color"]') !== null) {
+                    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f7f9fe')
+                }
+            }
+            const t = saveToLocal.get('theme')
+
+            const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+            const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+            const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+            const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+            if (t === undefined) {
+                if (isLightMode) activateLightMode()
+                else if (isDarkMode) activateDarkMode()
+                else if (isNotSpecified || hasNoSupport) {
+                    const now = new Date()
+                    const hour = now.getHours()
+                    const isNight = hour <= 6 || hour >= 18
+                    isNight ? activateDarkMode() : activateLightMode()
+                }
+                window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+                    if (saveToLocal.get('theme') === undefined) {
+                        e.matches ? activateDarkMode() : activateLightMode()
+                    }
+                })
+            } else if (t === 'light') activateLightMode()
+            else activateDarkMode()
+
+            const asideStatus = saveToLocal.get('aside-status')
+            if (asideStatus !== undefined) {
+                if (asideStatus === 'hide') {
+                    document.documentElement.classList.add('hide-aside')
+                } else {
+                    document.documentElement.classList.remove('hide-aside')
+                }
+            }
+
+            const detectApple = () => {
+                if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+                    document.documentElement.classList.add('apple')
+                }
+            }
+            detectApple()
+        })(window)
+    </script>
+</head>
+
+<body data-type="music">
+    <div id="web_bg">
+    </div>
+    <div id="an_music_bg"></div>
+    <div class="page" id="body-wrap">
+        <header class="not-top-img" id="page-header">
+            <nav id="nav">
+                <div id="nav-group">
+                    <span id="blog_name">
+                        <div class="back-home-button"><i class="naokuofont naokuo-icon-grip-vertical"></i>
+                            <div class="back-menu-list-groups">
+                                <div class="back-menu-list-group">
+                                    <div class="back-menu-list-title">网页</div>
+                                    <div class="back-menu-list">
+                                        <a class="back-menu-item" target="_blank"
+                                            rel="noopener external nofollow noreferrer" href="https://naokuo.top"
+                                            title="主页">
+                                            <img class="back-menu-item-icon" src="/favicon.ico" alt="主页" />
+                                            <span class="back-menu-item-text">主页</span>
+                                        </a>
+                                        <a class="back-menu-item" target="_blank"
+                                            rel="noopener external nofollow noreferrer" href="https://blog.naokuo.top"
+                                            title="博客">
+                                            <img class="back-menu-item-icon" src="/favicon.ico" alt="博客" />
+                                            <span class="back-menu-item-text">博客</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <a id="site-name" href="/" accesskey="h">
+                            <div class="title">NaoKuo</div><i class="naokuofont naokuo-icon-house-chimney"></i>
+                        </a>
+                    </span>
+                    <div id="nav-right">
+                        <div id="nav-naoDark">
+                            <div class="container">
+                                <div class="components">
+                                    <div class="main-button">
+                                        <div class="moon"></div>
+                                        <div class="moon"></div>
+                                        <div class="moon"></div>
+                                    </div>
+                                    <div class="daytime-backgrond"></div>
+                                    <div class="daytime-backgrond"></div>
+                                    <div class="daytime-backgrond"></div>
+                                    <div class="cloud">
+                                        <div class="cloud-son"></div>
+                                        <div class="cloud-son"></div>
+                                        <div class="cloud-son"></div>
+                                        <div class="cloud-son"></div>
+                                        <div class="cloud-son"></div>
+                                        <div class="cloud-son"></div>
+                                    </div>
+                                    <div class="cloud-light">
+                                        <div class="cloud-son"></div>
+                                        <div class="cloud-son"></div>
+                                        <div class="cloud-son"></div>
+                                        <div class="cloud-son"></div>
+                                        <div class="cloud-son"></div>
+                                        <div class="cloud-son"></div>
+                                    </div>
+                                    <div class="stars">
+                                        <div class="star big">
+                                            <div class="star-son"></div>
+                                            <div class="star-son"></div>
+                                            <div class="star-son"></div>
+                                            <div class="star-son"></div>
+                                        </div>
+                                        <div class="star big">
+                                            <div class="star-son"></div>
+                                            <div class="star-son"></div>
+                                            <div class="star-son"></div>
+                                            <div class="star-son"></div>
+                                        </div>
+                                        <div class="star medium">
+                                            <div class="star-son"></div>
+                                            <div class="star-son"></div>
+                                            <div class="star-son"></div>
+                                            <div class="star-son"></div>
+                                        </div>
+                                        <div class="star medium">
+                                            <div class="star-son"></div>
+                                            <div class="star-son"></div>
+                                            <div class="star-son"></div>
+                                            <div class="star-son"></div>
+                                        </div>
+                                        <div class="star small">
+                                            <div class="star-son"></div>
+                                            <div class="star-son"></div>
+                                            <div class="star-son"></div>
+                                            <div class="star-son"></div>
+                                        </div>
+                                        <div class="star small">
+                                            <div class="star-son"></div>
+                                            <div class="star-son"></div>
+                                            <div class="star-son"></div>
+                                            <div class="star-son"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main id="blog-container">
+            <div class="layout hide-aside" id="content-inner">
+                <div id="page">
+                    <h1 class="page-title">音乐馆</h1>
+                    <div id="anMusic-page">
+                        <!-- <div id="anMusic-mask"></div> -->
+                        <div class="anMusicDot">
+                            <div class="anMusicList">
+                                <i class="naokuofont naokuo-icon-music"></i>
+                            </div>
+                            <div class="pulse p1"></div>
+                            <div class="pulse p2"></div>
+                        </div>
+                        <div id="anMusic-page-meting">
+                            <meting-js class="eo-music eoHide">
+                                <div id="music-container"></div>
+                            </meting-js>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <div id="sidebar">
+        <div id="menu-mask"></div>
+    </div>
+    <div>
+
+        <script>var meting_api = "https://meting.naokuo.top/api?server=:server&type=:type&id=:id&auth=:auth&r=:r";</script>
+        <script src="/js/APlayer.js"></script>
+        <script src="/js/utils.js"></script>
+        <script src="/js/main.js"></script>
+        <!-- <script src="https://cdn.cbd.int/naokuo-blog-static@1.0.11/aplayer/Meting2.min.js"></script> -->
+    </div>
+</body>
+
+</html>
