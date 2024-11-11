@@ -33751,11 +33751,11 @@ div#danmu-Btn button.hide-Btn:active,
 #nav-right #console-naoDark .container {
   font-size: 0.85px;
 }
-@media screen and (max-width: 1000px) {
+/* @media screen and (max-width: 1000px) {
   #nav-right #nav-naoDark {
     display: none;
   }
-}
+} */
 #nav-right #nav-naoDark .container {
   font-size: 0.5px;
 }
