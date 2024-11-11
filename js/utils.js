@@ -1,4 +1,18 @@
 const anzhiyu = {
+  animateIn: (ele, text) => {
+    ele.style.display = "block";
+    ele.style.animation = text;
+  },
+
+  animateOut: (ele, text) => {
+    ele.addEventListener("animationend", function f() {
+      ele.style.display = "";
+      ele.style.animation = "";
+      ele.removeEventListener("animationend", f);
+    });
+    ele.style.animation = text;
+  },
+
   // 音乐节目切换背景
   changeMusicBg: function (isChangeBg = true) {
     const anMusicBg = document.getElementById("an_music_bg");
@@ -52,7 +66,7 @@ const anzhiyu = {
         document.getElementById("menu-mask").removeEventListener("click", anMusicPageMenuAask);
         return;
       }
-      document.getElementById("eo-music-list").classList.remove("eomusic-onoff"),
+      // document.getElementById("eo-music-list").classList.remove("eomusic-onoff"),
         anMusicPage.querySelector(".aplayer-list") && anMusicPage.querySelector(".aplayer-list").classList.remove("aplayer-list-hide");
     }
 
@@ -122,22 +136,6 @@ const anzhiyu = {
     anzhiyu.changeMusicBg(false);
   },
 
-  // 控制台音乐列表监听
-  addEventListenerConsoleMusicList: function () {
-    const navMusic = document.getElementById("nav-music");
-    if (!navMusic) return;
-    navMusic.addEventListener("click", e => {
-      const aplayerList = navMusic.querySelector(".aplayer-list");
-      const listBtn = navMusic.querySelector(
-        "div.aplayer-info > div.aplayer-controller > div.aplayer-time.aplayer-time-narrow > button.aplayer-icon.aplayer-icon-menu svg"
-      );
-      if (e.target != listBtn && aplayerList.classList.contains("aplayer-list-hide")) {
-        aplayerList.classList.remove("aplayer-list-hide");
-      }
-    });
-  },
-
-
 };
 
 const naokuo_ap = new APlayer({
@@ -158,17 +156,15 @@ const naokuo_ap = new APlayer({
 
 const NaoKuo = {
   naoDarkButton: function (elementId, childSelector) {
-    const willChangeMode = document.documentElement.getAttribute("data-theme");
+    const willChangeMode = document.documentElement;
     const element = document.getElementById(elementId);
     if (element && childSelector) {
       const childElement = element.querySelector(childSelector);
       childElement && childElement.addEventListener("click", () => {
-        const isMode = element.getAttribute("button-theme") === "dark" ? "light" : "dark";
-        element.setAttribute("button-theme", isMode);
+        const isMode = willChangeMode.getAttribute("data-theme") === "dark" ? "light" : "dark";
+        willChangeMode.setAttribute("data-theme", isMode);
+        saveToLocal.set('theme', isMode, 0.5)
       });
-    }
-    if (element && willChangeMode) {
-      element.setAttribute("button-theme", willChangeMode);
     }
   }
 }
