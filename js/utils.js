@@ -55,8 +55,7 @@ const anzhiyu = {
       const menu_mask = document.getElementById("menu-mask"),
         aplayer_list = anMusicPage.querySelector(".aplayer.aplayer-withlist .aplayer-list");
       if (menu_mask && aplayer_list) {
-        menu_mask.style.display = "block";
-        menu_mask.style.animation = "0.5s ease 0s 1 normal none running to_show";
+        anzhiyu.animateIn(menu_mask, "0.5s ease 0s 1 normal none running to_show");
         aplayer_list.style.opacity = "1";
       }
     });
@@ -66,8 +65,9 @@ const anzhiyu = {
         document.getElementById("menu-mask").removeEventListener("click", anMusicPageMenuAask);
         return;
       }
-      // document.getElementById("eo-music-list").classList.remove("eomusic-onoff"),
-        anMusicPage.querySelector(".aplayer-list") && anMusicPage.querySelector(".aplayer-list").classList.remove("aplayer-list-hide");
+
+      anMusicPage.querySelector(".aplayer-list") && anMusicPage.querySelector(".aplayer-list").classList.remove("aplayer-list-hide");
+      anzhiyu.animateOut(document.getElementById("menu-mask"), "to_hide 0.5s");
     }
 
     document.getElementById("menu-mask").addEventListener("click", anMusicPageMenuAask);
@@ -117,17 +117,17 @@ const anzhiyu = {
     const cacheData = JSON.parse(localStorage.getItem("musicData")) || { timestamp: 0 };
     let songs = [];
 
-      // 如果缓存的数据没有过期，直接使用
-      if (currentTime - cacheData.timestamp < 24 * 60 * 60 * 1000) {
-        songs = cacheData.songs;
-      } else {
-        // 否则重新从服务器获取数据
-        const response = await fetch("/json/music.json");
-        songs = await response.json();
-        cacheData.timestamp = currentTime;
-        cacheData.songs = songs;
-        localStorage.setItem("musicData", JSON.stringify(cacheData));
-      }
+    // 如果缓存的数据没有过期，直接使用
+    if (currentTime - cacheData.timestamp < 24 * 60 * 60 * 1000) {
+      songs = cacheData.songs;
+    } else {
+      // 否则重新从服务器获取数据
+      const response = await fetch("/json/music.json");
+      songs = await response.json();
+      cacheData.timestamp = currentTime;
+      cacheData.songs = songs;
+      localStorage.setItem("musicData", JSON.stringify(cacheData));
+    }
 
     // 清除当前播放列表并添加新的歌曲
     naokuo_ap.list.clear();
