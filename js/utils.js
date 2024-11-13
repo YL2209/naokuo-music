@@ -1,4 +1,4 @@
-const anzhiyu = {
+const naokuo = {
   animateIn: (ele, text) => {
     ele.style.display = "block";
     ele.style.animation = text;
@@ -29,9 +29,9 @@ const anzhiyu = {
         if (musiccover) {
           clearInterval(timer);
           // 绑定事件
-          anzhiyu.addEventListenerMusic();
+          naokuo.addEventListenerMusic();
           // 确保第一次能够正确替换背景
-          anzhiyu.changeMusicBg();
+          naokuo.changeMusicBg();
 
         }
       }, 100);
@@ -48,14 +48,14 @@ const anzhiyu = {
     metingAplayer.volume(0.8, true);
     // 加载完设置背景
     metingAplayer.on("loadeddata", function () {
-      anzhiyu.changeMusicBg();
+      naokuo.changeMusicBg();
     });
 
     aplayerIconMenu.addEventListener("click", function () {
       const menu_mask = document.getElementById("menu-mask"),
         aplayer_list = anMusicPage.querySelector(".aplayer.aplayer-withlist .aplayer-list");
       if (menu_mask && aplayer_list) {
-        anzhiyu.animateIn(menu_mask, "0.5s ease 0s 1 normal none running to_show");
+        naokuo.animateIn(menu_mask, "0.5s ease 0s 1 normal none running to_show");
         aplayer_list.style.opacity = "1";
       }
     });
@@ -67,7 +67,7 @@ const anzhiyu = {
       }
 
       anMusicPage.querySelector(".aplayer-list") && anMusicPage.querySelector(".aplayer-list").classList.remove("aplayer-list-hide");
-      anzhiyu.animateOut(document.getElementById("menu-mask"), "to_hide 0.5s");
+      naokuo.animateOut(document.getElementById("menu-mask"), "to_hide 0.5s");
     }
 
     document.getElementById("menu-mask").addEventListener("click", anMusicPageMenuAask);
@@ -133,28 +133,8 @@ const anzhiyu = {
     naokuo_ap.list.clear();
     naokuo_ap.list.add(songs);
 
-    anzhiyu.changeMusicBg(false);
+    naokuo.changeMusicBg(false);
   },
-
-};
-
-const naokuo_ap = new APlayer({
-  container: document.querySelector('#music-container'),
-  mini: false,
-  autoplay: false,
-  theme: 'var(--anzhiyu-main)',
-  loop: 'all',
-  order: 'list',
-  preload: 'auto',
-  volume: 0.7,
-  mutex: true,
-  listFolded: false,
-  listMaxHeight: 'calc(100vh - 169px)!important',
-  lrcType: 3,
-  audio: []
-});
-
-const NaoKuo = {
   naoDarkButton: function (elementId, childSelector) {
     const willChangeMode = document.documentElement;
     const element = document.getElementById(elementId);
@@ -167,4 +147,20 @@ const NaoKuo = {
       });
     }
   }
-}
+};
+
+const naokuo_ap = new APlayer({
+  container: document.querySelector('#music-container'),
+  mini: false,
+  autoplay: false,
+  theme: 'var(--naokuo-main)',
+  loop: 'all',
+  order: 'list',
+  preload: 'auto',
+  volume: 0.7,
+  mutex: true,
+  listFolded: false,
+  listMaxHeight: 'calc(100vh - 169px)!important',
+  lrcType: 3,
+  audio: []
+});

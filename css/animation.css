@@ -750,58 +750,58 @@
 
 @-moz-keyframes playingShadow {
   0% {
-    -webkit-box-shadow: 0 0px 12px -3px var(--anzhiyu-none);
-    box-shadow: 0 0px 12px -3px var(--anzhiyu-none);
+    -webkit-box-shadow: 0 0px 12px -3px var(--naokuo-none);
+    box-shadow: 0 0px 12px -3px var(--naokuo-none);
   }
   50% {
-    -webkit-box-shadow: 0 0px 12px 0px var(--anzhiyu-main);
-    box-shadow: 0 0px 12px 0px var(--anzhiyu-main);
+    -webkit-box-shadow: 0 0px 12px 0px var(--naokuo-main);
+    box-shadow: 0 0px 12px 0px var(--naokuo-main);
   }
   100% {
-    -webkit-box-shadow: 0 0px 12px -3px var(--anzhiyu-none);
-    box-shadow: 0 0px 12px -3px var(--anzhiyu-none);
+    -webkit-box-shadow: 0 0px 12px -3px var(--naokuo-none);
+    box-shadow: 0 0px 12px -3px var(--naokuo-none);
   }
 }
 @-webkit-keyframes playingShadow {
   0% {
-    -webkit-box-shadow: 0 0px 12px -3px var(--anzhiyu-none);
-    box-shadow: 0 0px 12px -3px var(--anzhiyu-none);
+    -webkit-box-shadow: 0 0px 12px -3px var(--naokuo-none);
+    box-shadow: 0 0px 12px -3px var(--naokuo-none);
   }
   50% {
-    -webkit-box-shadow: 0 0px 12px 0px var(--anzhiyu-main);
-    box-shadow: 0 0px 12px 0px var(--anzhiyu-main);
+    -webkit-box-shadow: 0 0px 12px 0px var(--naokuo-main);
+    box-shadow: 0 0px 12px 0px var(--naokuo-main);
   }
   100% {
-    -webkit-box-shadow: 0 0px 12px -3px var(--anzhiyu-none);
-    box-shadow: 0 0px 12px -3px var(--anzhiyu-none);
+    -webkit-box-shadow: 0 0px 12px -3px var(--naokuo-none);
+    box-shadow: 0 0px 12px -3px var(--naokuo-none);
   }
 }
 @-o-keyframes playingShadow {
   0% {
-    -webkit-box-shadow: 0 0px 12px -3px var(--anzhiyu-none);
-    box-shadow: 0 0px 12px -3px var(--anzhiyu-none);
+    -webkit-box-shadow: 0 0px 12px -3px var(--naokuo-none);
+    box-shadow: 0 0px 12px -3px var(--naokuo-none);
   }
   50% {
-    -webkit-box-shadow: 0 0px 12px 0px var(--anzhiyu-main);
-    box-shadow: 0 0px 12px 0px var(--anzhiyu-main);
+    -webkit-box-shadow: 0 0px 12px 0px var(--naokuo-main);
+    box-shadow: 0 0px 12px 0px var(--naokuo-main);
   }
   100% {
-    -webkit-box-shadow: 0 0px 12px -3px var(--anzhiyu-none);
-    box-shadow: 0 0px 12px -3px var(--anzhiyu-none);
+    -webkit-box-shadow: 0 0px 12px -3px var(--naokuo-none);
+    box-shadow: 0 0px 12px -3px var(--naokuo-none);
   }
 }
 @keyframes playingShadow {
   0% {
-    -webkit-box-shadow: 0 0px 12px -3px var(--anzhiyu-none);
-    box-shadow: 0 0px 12px -3px var(--anzhiyu-none);
+    -webkit-box-shadow: 0 0px 12px -3px var(--naokuo-none);
+    box-shadow: 0 0px 12px -3px var(--naokuo-none);
   }
   50% {
-    -webkit-box-shadow: 0 0px 12px 0px var(--anzhiyu-main);
-    box-shadow: 0 0px 12px 0px var(--anzhiyu-main);
+    -webkit-box-shadow: 0 0px 12px 0px var(--naokuo-main);
+    box-shadow: 0 0px 12px 0px var(--naokuo-main);
   }
   100% {
-    -webkit-box-shadow: 0 0px 12px -3px var(--anzhiyu-none);
-    box-shadow: 0 0px 12px -3px var(--anzhiyu-none);
+    -webkit-box-shadow: 0 0px 12px -3px var(--naokuo-none);
+    box-shadow: 0 0px 12px -3px var(--naokuo-none);
   }
 }
 @-moz-keyframes changeright {

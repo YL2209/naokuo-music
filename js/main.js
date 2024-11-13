@@ -4,8 +4,8 @@ var musicVolume = 0.8;
 
 document.addEventListener("DOMContentLoaded", function () {
   window.refreshFn = function () {
-    anzhiyu.changeMusicList();
-    NaoKuo.naoDarkButton('nav-naoDark', '.components');
+    naokuo.changeMusicList();
+    naokuo.naoDarkButton('nav-naoDark', '.components');
   };
 
   refreshFn();
